@@ -1,0 +1,22 @@
+[tool.ruff]
+# Define maximum line length
+line-length = 88
+
+# Exclude specific files or directories
+exclude = ["app_response.py"]
+
+[tool.ruff.lint]
+# Define the rules to enforce, including flake8 and isort rules
+select = [
+    "E",  # Error codes (from flake8)
+    "F",  # Failures (from flake8)
+    "W",  # Warnings (from flake8)
+    "C90",  # Custom/Specific categories
+    "I",  # Import sorting (from isort)
+    "D",  # Docstring conventions (from pydocstyle)
+]
+
+# Exclude specific error codes
+ignore = ["E501", "D211", "D212"]
+
+
