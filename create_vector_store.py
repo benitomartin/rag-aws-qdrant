@@ -1,9 +1,9 @@
-# app.py
+# create_vector_store.py
 """
 Script to download a PDF paper from ArXiv, process it, and upsert metadata into Qdrant.
 
 Usage:
-    python app.py --paper_number 1706.03762
+    python create_vector_store.py --paper_number 1706.03762
 """
 
 import argparse
