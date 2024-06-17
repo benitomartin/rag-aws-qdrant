@@ -1,59 +1,111 @@
-# rag-aws-qdrant
-python create_vector_store.py --paper_number 1706.03762
+# RAG AWS API QDRANT 🚀
 
-aws lambda update-function-configuration \
-  --function-name rag-llm-lambda \
-  --timeout 300 \
-  --memory-size 1024
+<p align="center">
+  <img width="976" alt="aws" src="https://github.com/benitomartin/mlops-aws-insurance/assets/116911431/4bfeb7ce-b151-4042-8cf6-c83299a2765a">
+</p>
+
+This repository contains a full Q&A pipeline using LangChain framework, Qdrant as vector database and AWS as AWS Lambda Function and API Gateway. The data used are research papers that can be loaded into the vector database, and the AWS Lambda Function processes the request using the retrieval and generation logic. Therefore it can use any other research paper from Arxiv.
+
+This [Medium article](https://medium.com/@bmartinc80/building-a-serverless-application-with-aws-lambda-and-qdrant-for-semantic-search-ddb7646d4c2f) contains the complete instructions for the project set up.
+
+The main steps taken to build the RAG pipeline can be summarize as follows:
+
+* **Data Ingestion**: load data from https://arxiv.org
+
+* **Indexing**: RecursiveCharacterTextSplitter for indexing in chunks
+
+* **Vector Store**: Qdrant inserting metadata
+
+* **QA Chain Retrieval**: RetrievalQA
+
+* **AWS Lambda and API**: Process the request
+
+* **Streamlit**: UI
+  
+Feel free to ⭐ and clone this repo 😉
+
+## Tech Stack
+
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Jupyter Notebook](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![OpenAI](https://img.shields.io/badge/OpenAI-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
+![Anaconda](https://img.shields.io/badge/Anaconda-%2344A833.svg?style=for-the-badge&logo=anaconda&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Git](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+
+## Project Structure
+
+The project has been structured with the following folders and files:
+
+- `Dockerfile:` raw and clean data
+- `.env_sample`: sample environmental variables
+- `.gitattributes`: gitattributes
+- `Makefile`: install requirements, formating, linting, and clean up
+- `pyproject.toml`: linting and formatting using ruff
+- `requirements.txt:` project requirements
+- `create_vector_store.py:` script to create the collection in Qdrant
+- `rag_app.py:` RAG Logic
+- `lambda_function.py:` lambda function
+- `test_lambda.py:` script to test the lambda function
+- `build_and_deploy.sh:` script to create and push the Docker image and deploy it as an AWS Lambda function
 
 
-aws lambda get-function-configuration --function-name llm-lambda-raga
+## Project Set Up
 
+The Python version used for this project is Python 3.10. You can follow along the medium article.
 
-chmod +x build_and_deploy.sh
-./build_and_deploy.sh
+1. Clone the repo (or download it as a zip file):
 
+   ```bash
+   git clone https://github.com/benitomartin/rag-aws-qdrant.git
+   ```
 
+2. Create the virtual environment named `main-env` using Conda with Python version 3.10:
 
-# Step 1: Create an API Gateway
-Navigate to the API Gateway Console:
+   ```bash
+   conda create -n main-env python=3.10
+   conda activate main-env
+   ```
+   
+3. Execute the `Makefile` script and install the project dependencies included in the requirements.txt:
 
-Go to the AWS Management Console.
-Open the API Gateway service.
-Create a New REST API:
+    ```bash
+    pip install -r requirements.txt
 
-Click on "Create API".
-Select "REST API" and then click "Build".
-Choose "New API".
-Provide a name for your API (e.g., LLMAPI).
-Click "Create API".
-Create a Resource:
+    or
+ 
+    make install
+    ```
 
-Click on "Actions" and select "Create Resource".
-Provide a Resource Name (e.g., query) and Resource Path (e.g., /query).
-Click "Create Resource".
-Create a Method:
+4. Creat **AWS Account**, credentials, and proper policies with full access to ECR and Lambda for the projects to function correctly. Make sure to configure the appropriate credentials to interact with AWS services.
 
-Select the newly created resource (/query).
-Click on "Actions" and select "Create Method".
-Choose "POST" from the dropdown and click the checkmark.
-Set up Integration with Lambda:
+5. Make sure the `.env` file is complete and run the `build_and_deploy.sh script`  
 
-In the "Setup" page, select "Lambda Function".
-Check the box for "Use Lambda Proxy integration".
-In the "Lambda Function" field, enter the name of your Lambda function (e.g., llm-lambda).
-Click "Save".
-You will be prompted to grant API Gateway permission to invoke your Lambda function. Click "OK".
-Deploy the API:
+   ```bash
+   chmod +x build_and_deploy.sh
+   ./build_and_deploy.sh
+   ```
 
-Click on "Actions" and select "Deploy API".
-Create a new deployment stage (e.g., dev).
-Click "Deploy".
-Get the Endpoint URL:
+6. If you get timeout and/or memory error you can increase them:
+   ```bash
+    aws lambda update-function-configuration \
+    --function-name rag-llm-lambda \
+    --timeout 300 \
+    --memory-size 1024
+   ```
 
-After deployment, you will be provided with an Invoke URL (e.g., https://<api-id>.execute-api.<region>.amazonaws.com/dev).
+7. Create an API Endpoint as pero medium article description
 
+8. Run the streamlit app:
+   ```bash
+   streamlit run streamlit_app.py
+   ```
 
-curl -X POST  https://0cmkbkknb6.execute-api.eu-central-1.amazonaws.com/dev/query   -H "Content-Type: application/json"   -d '{"query": "What is the capital of France?", "collection_name": "arxiv-collection"}'
+## Streamlit UI
 
-curl -X POST  https://0cmkbkknb6.execute-api.eu-central-1.amazonaws.com/dev/query   -H "Content-Type: application/json"   -d '{"query": "positional encoder", "collection_name": "arxiv-collection"}'
+<p align="center">
+    <img src="https://github.com/benitomartin/mlops-aws-insurance/assets/116911431/3bd3c707-4967-43d2-ba83-2a1a19196e47">
+    </p>
