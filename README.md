@@ -11,7 +11,6 @@ aws lambda get-function-configuration --function-name llm-lambda-raga
 
 
 chmod +x build_and_deploy.sh
-
 ./build_and_deploy.sh
 
 

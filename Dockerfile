@@ -3,7 +3,6 @@ FROM public.ecr.aws/lambda/python:3.10
 
 # Copy function code
 COPY lambda_function.py ${LAMBDA_TASK_ROOT}
-# COPY app_response.py ${LAMBDA_TASK_ROOT}
 COPY rag_app.py ${LAMBDA_TASK_ROOT}
 COPY requirements.txt ${LAMBDA_TASK_ROOT}
 COPY .env ${LAMBDA_TASK_ROOT}
