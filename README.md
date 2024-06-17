@@ -4,7 +4,7 @@
   <img width="976" alt="aws" src="https://github.com/benitomartin/mlops-aws-insurance/assets/116911431/4bfeb7ce-b151-4042-8cf6-c83299a2765a">
 </p>
 
-This repository contains a full Q&A pipeline using LangChain framework, Qdrant as vector database and AWS as AWS Lambda Function and API Gateway. The data used are research papers that can be loaded into the vector database, and the AWS Lambda Function processes the request using the retrieval and generation logic. Therefore it can use any other research paper from Arxiv.
+This repository contains a full Q&A pipeline using LangChain framework, Qdrant as vector database and AWS Lambda Function and API Gateway. The data used are research papers that can be loaded into the vector database, and the AWS Lambda Function processes the request using the retrieval and generation logic. Therefore it can use any other research paper from Arxiv.
 
 This [Medium article](https://medium.com/@bmartinc80/building-a-serverless-application-with-aws-lambda-and-qdrant-for-semantic-search-ddb7646d4c2f) contains the complete instructions for the project set up.
 
@@ -38,7 +38,7 @@ Feel free to ⭐ and clone this repo 😉
 
 ## Project Structure
 
-The project has been structured with the following folders and files:
+The project has been structured with the following files:
 
 - `Dockerfile:` raw and clean data
 - `.env_sample`: sample environmental variables
@@ -80,7 +80,7 @@ The Python version used for this project is Python 3.10. You can follow along th
     make install
     ```
 
-4. Creat **AWS Account**, credentials, and proper policies with full access to ECR and Lambda for the projects to function correctly. Make sure to configure the appropriate credentials to interact with AWS services.
+4. Creat **AWS Account**, credentials, and proper policies with full access to ECR and Lambda for the project to function correctly. Make sure to configure the appropriate credentials to interact with AWS services.
 
 5. Make sure the `.env` file is complete and run the `build_and_deploy.sh script`  
 
@@ -97,7 +97,7 @@ The Python version used for this project is Python 3.10. You can follow along th
     --memory-size 1024
    ```
 
-7. Create an API Endpoint as pero medium article description
+7. Create an API Endpoint as per medium article description
 
 8. Run the streamlit app:
    ```bash
