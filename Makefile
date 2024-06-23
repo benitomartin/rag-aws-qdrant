@@ -1,12 +1,12 @@
 # Makefile
 
-.PHONY: all req lint format
+.PHONY: all req lint format clean
 
 # Variables
 PIP := pip
 RUFF := ruff
 
-all: req lint format ## Run all tasks
+all: req lint format clean ## Run all tasks
 
 
 req: ## Install the requirements
