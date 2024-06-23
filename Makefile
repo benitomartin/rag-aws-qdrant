@@ -1,6 +1,6 @@
 # Makefile
 
-.PHONY: all req test lint format
+.PHONY: all req lint format
 
 # Variables
 PIP := pip
