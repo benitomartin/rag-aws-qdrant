@@ -1,6 +1,6 @@
 # Makefile
 
-.PHONY: all req test lint format coverage clean
+.PHONY: all req test lint format
 
 # Variables
 PIP := pip
