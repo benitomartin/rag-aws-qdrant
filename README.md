@@ -40,7 +40,7 @@ Feel free to ⭐ and clone this repo 😉
 
 The project has been structured with the following files:
 
-- `Dockerfile:` raw and clean data
+- `Dockerfile:` Dockerfile
 - `.env_sample`: sample environmental variables
 - `.gitattributes`: gitattributes
 - `Makefile`: install requirements, formating, linting, and clean up
